@@ -20,3 +20,18 @@
   text-align: center;
   font-size: 12px;
 }
+
+td, th {
+  vertical-align: middle !important;
+  text-align: center !important;
+}
+
+svg {
+  height: 150px;
+}
+
+td:first-of-type, td:first-of-type>div{
+  height: 180px;
+  width: 200px;
+  margin-left: 0px;
+}

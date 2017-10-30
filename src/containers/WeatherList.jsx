@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Chart from '../components/ChartLines';
+import SparkChart from '../components/SparkLinesChart';
+//import ReChart from '../components/RechartsChart';
+import GoogleMap from '../components/GoogleMap';
 
 class WeatherList extends Component {
   renderWeather(cityData) {
-    //console.log(cityData.city.name);
-    //const len = cityData.list.length;
     let temp = [], pressure=[], humidity= [];
     temp = cityData.list.map((value) => parseInt(value.main.temp)-273);
     pressure = cityData.list.map((value) => value.main.pressure);
     humidity = cityData.list.map((value) => value.main.humidity);
+    const city = cityData.city;
+    //const {name, country} = city;
+    const { lon, lat } = city.coord;
 
     return(
-      <tr key={cityData.city.name}>
-        <td> { cityData.city.name } ({cityData.city.country}) </td>
-        <td><Chart data={temp} color="orange" unit="&#8451;" /></td>
-        <td><Chart data={pressure} color="blue" unit="hPa" /></td>
-        <td><Chart data={humidity} color="green" unit="%" /></td>
-      </tr>
+        <tr key={cityData.city.name }>
+          <td> <GoogleMap lon={lon} lat={lat} /> </td>
+          <td><SparkChart data={temp} color="orange" unit="&#8451;" /></td>
+          <td><SparkChart data={pressure} color="blue" unit="hPa" /></td>
+          <td><SparkChart data={humidity} color="green" unit="%" /></td>
+        </tr>
     );
   };
   render() {
@@ -46,7 +49,7 @@ function mapStateToProps(state) {
   };
 }
 /**
- * Whis is completely same as
+ * This is completely same as
  * function mapSateToProps({ weather }) {
  *  return {weather: state.weather};  OR
  *  return {weather};
